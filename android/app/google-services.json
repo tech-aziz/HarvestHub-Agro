@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "601761772374",
+    "project_id": "harvest-hub-agro",
+    "storage_bucket": "harvest-hub-agro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601761772374:android:c7c10b3752bd2bfb4b1cf7",
+        "android_client_info": {
+          "package_name": "com.example.harvest_hub_agro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABqvnyMxtU7t1VrS8AfhVgQ_Eo9turDuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
