@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../components/custom_button.dart';
 import '../../utils/config.dart';
-import '../Auth/LoginScreen/login_screen1.dart';
+import '../Auth/LoginScreen/login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -76,7 +76,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const loginScreen(),));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen(),));
                   },
                   child: customButton(
                     label: 'Get Started',

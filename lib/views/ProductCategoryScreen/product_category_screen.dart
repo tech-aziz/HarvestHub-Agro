@@ -50,8 +50,12 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
             ],
           )),
       body: ListView.builder(
+        shrinkWrap: true,
+        primary: false,
+        physics: const BouncingScrollPhysics(),
         itemCount: widget.category.length,
         itemBuilder: (context, index) {
+
           return Padding(
             padding: const EdgeInsets.all(6.0),
             child: InkWell(

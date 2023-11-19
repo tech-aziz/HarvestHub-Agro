@@ -5,7 +5,6 @@ import '../../components/custom_textfield.dart';
 import '../../utils/config.dart';
 import '../HomeScreen/home_screen.dart';
 
-
 class FarmDetailScreen extends StatefulWidget {
   const FarmDetailScreen({super.key});
 
@@ -18,7 +17,7 @@ class _FarmDetailScreenState extends State<FarmDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+          backgroundColor: Colors.green,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -63,52 +62,58 @@ class _FarmDetailScreenState extends State<FarmDetailScreen> {
                     ),
                   ),
                   customTextField(
-                    textLevel: 'Enter Your Crop Type',
-                    context: context,
-                    textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Enter Your Crop Type',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-
-                    textLevel: 'Enter Your Soil Type',
-                    context: context,
-                      textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Enter Your Soil Type',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-                    textLevel: 'Enter Your Climate',
-                    context: context,
-                      textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Enter Your Climate',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-
-                    textLevel: 'Farm Size and layout',
-                    context: context,
-                      textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Farm Size and layout',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-
-                    textLevel: 'Pest and disease',
-                    context: context,
-                      textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Pest and disease',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-
-                    textLevel: 'Farming equipment',
-                    context: context,
-                      textColor:  Colors.green
+                      obscureText: false,
+                      textLevel: 'Farming equipment',
+                      context: context,
+                      textColor: Colors.green),
+                  const SizedBox(
+                    height: 6,
                   ),
-                  const SizedBox(height: 6,),
                   customTextField(
-
-                    textLevel: 'Economic Information',
-                    context: context,
-                      textColor:  Colors.green
-                  ),
-
+                      obscureText: false,
+                      textLevel: 'Economic Information',
+                      context: context,
+                      textColor: Colors.green),
                   InkWell(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const HomeScreen(),

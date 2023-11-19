@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../components/custom_searchbar.dart';
-import '../Auth/LoginScreen/login_screen1.dart';
+import '../Auth/LoginScreen/login_screen.dart';
 import '../ProductCategoryScreen/product_category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  //variables
   List productList = [
     {
       'name': 'Organic Fruits',
@@ -468,16 +470,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ]
     }
   ];
+
+  //firebase instance
   final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/bg.jpg'),
-              fit: BoxFit.cover,
-              opacity: 0.5)),
+      // decoration: const BoxDecoration(
+      //     image: DecorationImage(
+      //         image: AssetImage('assets/images/bg.jpg'),
+      //         fit: BoxFit.cover,
+      //         opacity: 0.5)),
       child: Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -515,32 +520,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 otherAccountsPictures: [],
               ),
-              // const DrawerHeader(
-              //   decoration: BoxDecoration(
-              //     color: Colors.red,
-              //     image: DecorationImage(
-              //       image: AssetImage(
-              //         "assets/images/vegetable.jpg",
-              //       ),
-              //       fit: BoxFit.fill,
-              //     ),
-              //   ),
-              //   child: Stack(
-              //     children: [
-              //       Positioned(
-              //         bottom: 8.0,
-              //         left: 4.0,
-              //         child: Text(
-              //           "Harvest Hub Agro",
-              //           style: TextStyle(
-              //               color: Colors.white,
-              //               fontSize: 25,
-              //               fontWeight: FontWeight.bold),
-              //         ),
-              //       )
-              //     ],
-              //   ),
-              // ),
               ListTile(
                 onTap: () {
                   // Get.offAll(() => const MainScreen());
@@ -650,7 +629,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const loginScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                       (route) => false);
                   // Navigator.pushReplacement(
@@ -702,8 +681,8 @@ class _HomeScreenState extends State<HomeScreen> {
             preferredSize: const Size.fromHeight(60.0),
             // here the desired height
             child: AppBar(
+              leadingWidth: 30,
               iconTheme: const IconThemeData(color: Colors.green, size: 25),
-              // backgroundColor: Colors.green,
               automaticallyImplyLeading: true,
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -740,10 +719,10 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         body: SafeArea(
           child: SizedBox(
-            height: double.infinity,
-            width: double.infinity,
+            height: size.height,
+            width: size.width,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -753,27 +732,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const CustomSearchBar(),
                     const SizedBox(
-                      height: 5,
-                    ),
-                    const SizedBox(
                       height: 12,
                     ),
-                    GridView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.7,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 5),
-                        itemCount: productList.length,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return LayoutBuilder(
-                            builder: (context, constraints) {
-                              return Column(
-                                children: [
-                                  InkWell(
+                    OrientationBuilder(
+                      builder: (context, orientation) {
+                        final isPortrait = orientation == Orientation.portrait;
+                        return GridView.builder(
+                            shrinkWrap: true,
+                            primary: false,
+                            physics: const BouncingScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: isPortrait ? 2 : 3,
+                              childAspectRatio: isPortrait ? 0.7 : 1,
+                              crossAxisSpacing: 10,
+                            ),
+                            itemCount: productList.length,
+                            itemBuilder: (BuildContext ctx, index) {
+                              return LayoutBuilder(
+                                builder: (context, constraints) {
+                                  return InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -786,32 +764,38 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       );
                                     },
-                                    child: Container(
-                                      height: constraints.maxHeight * 0.84,
-                                      width: constraints.maxWidth,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 1, color: Colors.green),
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  productList[index]['img']),
-                                              fit: BoxFit.cover),
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: constraints.maxHeight * 0.86,
+                                          width: constraints.maxWidth,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.green),
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      productList[index]
+                                                          ['img']),
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(15)),
+                                        ),
+                                        Text(
+                                          productList[index]["name"],
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.w700,
+                                              color: const Color(0xff0D5E06)),
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  Text(
-                                    productList[index]["name"],
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.w700,
-                                        color: const Color(0xff0D5E06)),
-                                  )
-                                ],
+                                  );
+                                },
                               );
-                            },
-                          );
-                        }),
+                            });
+                      },
+                    ),
                     InkWell(
                       onTap: () {},
                       child: Container(

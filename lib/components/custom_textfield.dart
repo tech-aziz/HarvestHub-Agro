@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 Widget customTextField(
     {required String textLevel,
     Color? textColor,
     String? hintText,
     Color? backgroundColor,
+    String? Function(String?)? validator,
+    TextInputType? keyboardType,
     TextEditingController? controller,
     IconData? prefixIcon,
-      IconData? suffixIcon,
+    IconData? suffixIcon,
+      required bool obscureText,
+    String? obscuringCharacter,
     required BuildContext context}) {
   return Container(
     width: MediaQuery.of(context).size.width / 1.1,
@@ -21,7 +24,11 @@ Widget customTextField(
           padding:
               const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
           child: TextFormField(
+            keyboardType: keyboardType,
             controller: controller,
+            validator: validator,
+            obscuringCharacter: '*',
+            obscureText: obscureText,
             onChanged: (val) {
               // setState(() {
               //   // isEmailCorrect = isEmail(val);
@@ -39,14 +46,15 @@ Widget customTextField(
                 color: Colors.green,
               ),
               suffixIcon: Icon(
-              suffixIcon,
+                suffixIcon,
                 color: Colors.green,
               ),
               filled: true,
               fillColor: Colors.transparent,
               labelText: textLevel,
               hintText: hintText,
-              labelStyle: TextStyle(color: textColor,fontWeight: FontWeight.bold),
+              labelStyle:
+                  TextStyle(color: textColor, fontWeight: FontWeight.bold),
               // suffixIcon: IconButton(
               //     onPressed: () {},
               //     icon: Icon(Icons.close,
