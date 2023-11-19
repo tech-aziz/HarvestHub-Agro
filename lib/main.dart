@@ -23,11 +23,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const SplashScreen(),
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot != null) {
+          if (snapshot.hasData) {
             return const HomeScreen();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

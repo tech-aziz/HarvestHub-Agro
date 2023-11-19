@@ -17,8 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //variables
-  bool isUserRegistered = false;
 
   //controllers for getting textFieldValue
   final TextEditingController emailController = TextEditingController();
@@ -275,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             .showSnackBar(
                                           const SnackBar(
                                             content: Text(
-                                              'Incorrect email or password',
+                                              'Email is not registered',
                                             ),
                                           ),
                                         );

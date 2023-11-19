@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:harvest_hub_agro/components/custom_button.dart';
 import 'package:harvest_hub_agro/views/HomeScreen/home_screen.dart';
 import 'package:lottie/lottie.dart';
-import '../../../components/custom_button.dart';
 import '../../../components/custom_textfield.dart';
 import '../../../utils/config.dart';
 
@@ -97,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter name';
                                 }
+                                return null;
                               },
                               textLevel: 'Full Name',
                               hintText: 'Enter your name',
@@ -152,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 6,
                           ),
                           customTextField(
-                            obscureText: true,
+                              obscureText: true,
                               validator: (value) {
                                 String pattern =
                                     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
@@ -178,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 6,
                           ),
                           customTextField(
-                            obscureText: true,
+                              obscureText: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Password is empty';
@@ -200,37 +201,96 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(
                         height: 50,
                       ),
-                      InkWell(
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              try {
-                                userSignUp();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'User is created successfully')));
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const HomeScreen()));
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'weak-password') {
-                                  print('The password provided is too weak.');
-                                } else if (e.code == 'email-already-in-use') {
-                                  print(
-                                      'The account already exists for that email.');
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: customButton(label: 'NEXT',backgroundColor: Colors.green, textColor: Colors.white),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                if (formKey.currentState!.validate()) {
+                                  try {
+                                    userSignUp();
+                                    nameController.clear();
+                                    emailController.clear();
+                                    passwordController.clear();
+                                    passwordController.clear();
+                                    confirmPasswordController.clear();
+
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                            backgroundColor: Colors.green,
+                                            content: Text(
+                                              'User is created successfully',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen()));
+                                  } on FirebaseAuthException catch (e) {
+                                    if (e.code == 'weak-password') {
+                                      print(
+                                          'The password provided is too weak.');
+                                    } else if (e.code ==
+                                        'email-already-in-use') {
+                                      print(
+                                          'The account already exists for that email.');
+                                    }
+                                  }
+                                } else {
+                                  debugPrint(
+                                      'Email is empty or password is empty');
                                 }
-                              }
-                            } else {
-                              debugPrint('Email is empty or password is empty');
-                            }
-                          },
-                          child: customButton(
-                            label: 'NEXT',
-                            backgroundColor: Colors.green,
-                            textColor: Colors.white,
-                          ))
+                              },
+                              child: customButton(label: 'LOGIN',backgroundColor: Colors.green, textColor: Colors.white),
+                            ),
+                          ),
+                        ],
+                      )
+                      // InkWell(
+                      //     onTap: () {
+                      //       if (formKey.currentState!.validate()) {
+                      //         try {
+                      //           userSignUp();
+                      //           ScaffoldMessenger.of(context).showSnackBar(
+                      //               const SnackBar(
+                      //                   content: Text(
+                      //                       'User is created successfully')));
+                      //           Navigator.push(
+                      //               context,
+                      //               MaterialPageRoute(
+                      //                   builder: (context) =>
+                      //                       const HomeScreen()));
+                      //         } on FirebaseAuthException catch (e) {
+                      //           if (e.code == 'weak-password') {
+                      //             print('The password provided is too weak.');
+                      //           } else if (e.code == 'email-already-in-use') {
+                      //             print(
+                      //                 'The account already exists for that email.');
+                      //           }
+                      //         }
+                      //       } else {
+                      //         debugPrint('Email is empty or password is empty');
+                      //       }
+                      //     },
+                      //     child: customButton(
+                      //       label: 'NEXT',
+                      //       backgroundColor: Colors.green,
+                      //       textColor: Colors.white,
+                      //     )),
                     ],
                   ),
                 ),
